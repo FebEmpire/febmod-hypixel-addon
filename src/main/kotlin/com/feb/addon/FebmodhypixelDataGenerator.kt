@@ -1,4 +1,4 @@
-package com.feb.mod
+package com.feb.addon
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator

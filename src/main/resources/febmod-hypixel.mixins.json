@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "com.feb.mod.mixin",
+	"package": "com.feb.addon.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
 		"ExampleMixin"

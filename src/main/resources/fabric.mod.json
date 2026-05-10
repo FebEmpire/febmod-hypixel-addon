@@ -14,20 +14,11 @@
 	"license": "CC0-1.0",
 	"icon": "assets/febmod-hypixel/icon.png",
 	"environment": "*",
-	"entrypoints": {
-		"main": [
-			{
-				"value": "com.feb.mod.Febmodhypixel",
-				"adapter": "kotlin"
-			}
-		],
-		"fabric-datagen": [
-			{
-				"value": "com.feb.mod.FebmodhypixelDataGenerator",
-				"adapter": "kotlin"
-			}
-		]
-	},
+    "entrypoints": {
+      "client": [
+      "com.feb.addon.Febmodhypixel"
+      ]
+    },
 	"mixins": [
 		"febmod-hypixel.mixins.json"
 	],

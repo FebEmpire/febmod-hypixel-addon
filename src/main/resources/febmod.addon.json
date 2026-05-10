@@ -1,3 +1,3 @@
 {
-  "entrypoint": "com.feb.addon.hypixel.HypixelAddon"
+  "entrypoint": "com.feb.addon.HypixelAddon"
 }

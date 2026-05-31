@@ -13,8 +13,8 @@ object EntityESP {
     private var enabled = false
     private val client = Minecraft.getInstance()
 
-    private val axolotlColor = Color(255, 105, 180)   // ~1f, 0.41f, 0.71f
-    private val shulkerColor  = Color(156,  89, 181)  // ~0.61f, 0.35f, 0.71f
+    private val axolotlColor = Color(51, 79, 143)
+    private val shulkerColor  = Color(51, 79, 143)
 
     fun initialize() {
         LevelRenderEvents.END_MAIN.register { _: LevelRenderContext ->

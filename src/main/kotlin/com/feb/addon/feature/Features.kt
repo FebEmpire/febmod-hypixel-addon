@@ -6,6 +6,7 @@ object Features {
         AntiCobbleBreaker.initialize()
         TriggerBot.initialize()
         EntityESP.initialize()
+        ShortCommands.register()
     }
 
 }

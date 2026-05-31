@@ -14,7 +14,7 @@ class HypixelAddon : FebAddon {
     override fun initialize() {
         Features.registerAll()
         Commands.registerAll()
-        println("FebMod-Hypixel initialized")
+        println("Hypixel addon initialized")
     }
 
     override fun createTab(screen: FebModGui): FebTab {

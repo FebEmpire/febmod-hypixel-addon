@@ -4,6 +4,8 @@ object Features {
 
     fun registerAll() {
         AntiCobbleBreaker.initialize()
+        TriggerBot.initialize()
+        EntityESP.initialize()
     }
 
 }

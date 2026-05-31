@@ -3,9 +3,12 @@
 	"id": "febmod-hypixel",
 	"version": "${version}",
 	"name": "febmod-hypixel",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Hypixel addon for FebMod",
 	"authors": [
-		"Me!"
+		"Februari10"
+	],
+	"contributors": [
+		"quiteboring.dev (Nathan)"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",

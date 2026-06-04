@@ -1,5 +1,6 @@
 package com.feb.addon.feature
 
+import com.feb.addon.config.ESPConfig
 import com.feb.addon.utils.RenderUtils
 import com.feb.mod.utils.ChatUtils
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents
@@ -8,30 +9,24 @@ import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.animal.axolotl.Axolotl
 import net.minecraft.world.entity.monster.Shulker
 import net.minecraft.world.entity.monster.zombie.Zombie
-import net.minecraft.world.entity.monster.Silverfish
 import net.minecraft.world.entity.ambient.Bat
-import java.awt.Color
+import net.minecraft.world.entity.monster.Silverfish
 
 object EntityESP {
     private var enabled = false
     private val client = Minecraft.getInstance()
 
-    private val axolotlColor = Color(51, 79, 143)
-    private val shulkerColor  = Color(51, 79, 143)
-    private val zombieColor  = Color(51, 79, 143)
-
     fun initialize() {
         LevelRenderEvents.END_MAIN.register { _: LevelRenderContext ->
             if (!enabled) return@register
             val level = client.level ?: return@register
-
             for (entity in level.entitiesForRendering()) {
                 when (entity) {
-                    is Axolotl -> RenderUtils.drawBox(entity.boundingBox, axolotlColor, esp = true)
-                    is Shulker -> RenderUtils.drawBox(entity.boundingBox, shulkerColor, esp = true)
-                    is Zombie -> RenderUtils.drawBox(entity.boundingBox, zombieColor, esp = true)
-                    is Silverfish -> RenderUtils.drawBox(entity.boundingBox, shulkerColor, esp = true)
-                    is Bat -> RenderUtils.drawBox(entity.boundingBox, zombieColor, esp = true)
+                    is Axolotl -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.blue, esp = true)
+                    is Shulker -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.febcolor, esp = true)
+                    is Zombie -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.green, esp = true)
+                    is Silverfish -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.red, esp = true)
+                    is Bat -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.febcolor, esp = true)
                 }
             }
         }

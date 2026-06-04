@@ -53,7 +53,7 @@ class HypixelTab : FebTab {
             FebModGui.TOP_BAR_HEIGHT + 62,
             160,
             20,
-            Component.literal("Entity ESP"),
+            Component.literal("ESP"),
             screen.font
         ) {
             EntityESP.toggle()

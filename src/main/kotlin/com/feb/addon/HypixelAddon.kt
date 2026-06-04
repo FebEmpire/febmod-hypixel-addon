@@ -9,7 +9,7 @@ import com.feb.addon.ui.HypixelTab
 
 class HypixelAddon : FebAddon {
     override val name = "FebMod-Hypixel"
-    override val version = "0.1.0"
+    override val version = "0.1.1"
 
     override fun initialize() {
         Features.registerAll()

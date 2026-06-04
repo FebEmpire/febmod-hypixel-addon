@@ -7,6 +7,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.animal.axolotl.Axolotl
 import net.minecraft.world.entity.monster.Shulker
+import net.minecraft.world.entity.monster.zombie.Zombie
+import net.minecraft.world.entity.monster.Silverfish
+import net.minecraft.world.entity.ambient.Bat
 import java.awt.Color
 
 object EntityESP {
@@ -15,6 +18,7 @@ object EntityESP {
 
     private val axolotlColor = Color(51, 79, 143)
     private val shulkerColor  = Color(51, 79, 143)
+    private val zombieColor  = Color(51, 79, 143)
 
     fun initialize() {
         LevelRenderEvents.END_MAIN.register { _: LevelRenderContext ->
@@ -25,6 +29,9 @@ object EntityESP {
                 when (entity) {
                     is Axolotl -> RenderUtils.drawBox(entity.boundingBox, axolotlColor, esp = true)
                     is Shulker -> RenderUtils.drawBox(entity.boundingBox, shulkerColor, esp = true)
+                    is Zombie -> RenderUtils.drawBox(entity.boundingBox, zombieColor, esp = true)
+                    is Silverfish -> RenderUtils.drawBox(entity.boundingBox, shulkerColor, esp = true)
+                    is Bat -> RenderUtils.drawBox(entity.boundingBox, zombieColor, esp = true)
                 }
             }
         }

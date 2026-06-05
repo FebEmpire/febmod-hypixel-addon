@@ -22,11 +22,11 @@ object EntityESP {
             val level = client.level ?: return@register
             for (entity in level.entitiesForRendering()) {
                 when (entity) {
-                    is Axolotl -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.blue, esp = true)
-                    is Shulker -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.febcolor, esp = true)
-                    is Zombie -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.green, esp = true)
-                    is Silverfish -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.red, esp = true)
-                    is Bat -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.febcolor, esp = true)
+                    is Axolotl -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
+                    is Shulker -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
+                    is Zombie -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
+                    is Silverfish -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
+                    is Bat -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
                 }
             }
         }

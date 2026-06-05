@@ -54,11 +54,15 @@ class HypixelTab : FebTab {
             160,
             20,
             Component.literal("ESP"),
-            screen.font
-        ) {
-            EntityESP.toggle()
-            buttons[2].toggled = EntityESP.isEnabled()
-        }
+            screen.font,
+            onPress = {
+                EntityESP.toggle()
+                buttons[2].toggled = EntityESP.isEnabled()
+            },
+            onRightClick = {
+                screen.openSubScreen(ESPConfigSubScreen(screen))
+            }
+        )
         espBtn.toggled = EntityESP.isEnabled()
         buttons.add(espBtn)
         screen.addWidget(espBtn)

@@ -8,13 +8,13 @@ import com.feb.mod.ui.gui.tabs.FebTab
 import com.feb.addon.ui.HypixelTab
 
 class HypixelAddon : FebAddon {
-    override val name = "FebMod-Hypixel"
-    override val version = "0.1.1"
+    override val name = "FebMod-Hypixel-addon"
+    override val version = "0.1.2"
 
     override fun initialize() {
         Features.registerAll()
         Commands.registerAll()
-        println("Hypixel addon initialized")
+        println("Hypixel addon loaded")
     }
 
     override fun createTab(screen: FebModGui): FebTab {

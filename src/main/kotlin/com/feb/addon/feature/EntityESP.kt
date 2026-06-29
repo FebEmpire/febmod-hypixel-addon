@@ -11,6 +11,7 @@ import net.minecraft.world.entity.monster.Shulker
 import net.minecraft.world.entity.monster.zombie.Zombie
 import net.minecraft.world.entity.ambient.Bat
 import net.minecraft.world.entity.monster.Silverfish
+import net.minecraft.world.entity.animal.frog.Frog
 
 object EntityESP {
     private var enabled = false
@@ -27,6 +28,7 @@ object EntityESP {
                     is Zombie -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
                     is Silverfish -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
                     is Bat -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
+                    is Frog -> RenderUtils.drawBox(entity.boundingBox, ESPConfig.activeColor, esp = true)
                 }
             }
         }

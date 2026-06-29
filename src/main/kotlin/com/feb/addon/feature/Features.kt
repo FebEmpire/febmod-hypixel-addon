@@ -1,5 +1,7 @@
 package com.feb.addon.feature
 
+import com.feb.addon.feature.solver.*
+
 object Features {
 
     fun registerAll() {
@@ -7,6 +9,8 @@ object Features {
         TriggerBot.initialize()
         EntityESP.initialize()
         ShortCommands.register()
+        AntiLimbo.register()
+        Solver.register()
     }
 
 }

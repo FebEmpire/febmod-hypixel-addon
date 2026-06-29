@@ -11,6 +11,10 @@ group = project.maven_group
 
 repositories {
     mavenLocal()
+    maven {
+        name = "meteor-maven"
+        url = "https://maven.meteordev.org/releases"
+    }
 }
 
 dependencies {

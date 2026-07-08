@@ -1,3 +1,4 @@
 {
+  "id": "hypixel",
   "entrypoint": "com.feb.addon.HypixelAddon"
 }

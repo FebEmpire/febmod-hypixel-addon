@@ -1,5 +1,6 @@
 package com.feb.addon
 
+import com.feb.mod.addon.AddonContext
 import com.feb.mod.addon.FebAddon
 import com.feb.addon.command.Commands
 import com.feb.addon.feature.Features
@@ -11,8 +12,11 @@ class HypixelAddon : FebAddon {
     override val name = "FebMod-Hypixel-addon"
     override val version = "0.1.2"
 
-    override fun initialize() {
-        Features.registerAll()
+    lateinit var config: com.feb.mod.addon.AddonConfig<HypixelConfig>
+
+    override fun initialize(context: AddonContext) {
+        config = context.config(HypixelConfig())
+        Features.registerAll(config)
         Commands.registerAll()
         println("Hypixel addon loaded")
     }

@@ -1,6 +1,7 @@
 package com.feb.addon.command
 
 import com.feb.addon.feature.AntiCobbleBreaker
+import com.feb.addon.utils.RotationUtils
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 
 object DotCommands {
@@ -20,6 +21,7 @@ object DotCommands {
         val args = message.substring(1).split(" ")
         when (args[0].lowercase()) {
             "cobble" -> AntiCobbleBreaker.toggle()
+            "rotate" -> RotationUtils.rotate()
         }
     }
 }

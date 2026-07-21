@@ -10,7 +10,7 @@ import com.feb.addon.ui.HypixelTab
 
 class HypixelAddon : FebAddon {
     override val name = "FebMod-Hypixel-addon"
-    override val version = "0.1.2"
+    override val version = "0.1.3"
 
     lateinit var config: com.feb.mod.addon.AddonConfig<HypixelConfig>
 

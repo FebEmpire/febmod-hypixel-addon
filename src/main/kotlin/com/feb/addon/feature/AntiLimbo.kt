@@ -1,7 +1,8 @@
 package com.feb.addon.feature
 
+import com.feb.mod.event.EventBus
+import com.feb.mod.event.events.ChatReceivedEvent
 import com.feb.mod.utils.ChatUtils
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.client.Minecraft
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -11,14 +12,12 @@ object AntiLimbo {
 
     private val executor = Executors.newSingleThreadScheduledExecutor()
     private const val LIMBO_MESSAGE = "You were spawned in Limbo."
+    private var subscription: EventBus.Subscription? = null
 
     fun register() {
-        ClientReceiveMessageEvents.GAME.register { message, overlay ->
-            if (!overlay) {
-                val messageText = message.string
-                if (messageText.contains(LIMBO_MESSAGE)) {
-                    handleLimboDetected()
-                }
+        subscription = EventBus.register<ChatReceivedEvent>("antilimbo") { event ->
+            if (event.system && event.message.contains(LIMBO_MESSAGE)) {
+                handleLimboDetected()
             }
         }
     }
@@ -39,5 +38,6 @@ object AntiLimbo {
 
     fun shutdown() {
         executor.shutdown()
+        subscription?.cancel()
     }
 }

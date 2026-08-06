@@ -7,6 +7,7 @@ import com.feb.addon.feature.Features
 import com.feb.mod.ui.gui.FebModGui
 import com.feb.mod.ui.gui.tabs.FebTab
 import com.feb.addon.ui.HypixelTab
+import com.feb.addon.utils.RotationUtils
 
 class HypixelAddon : FebAddon {
     override val name = "FebMod-Hypixel-addon"
@@ -17,6 +18,7 @@ class HypixelAddon : FebAddon {
     override fun initialize(context: AddonContext) {
         config = context.config(HypixelConfig())
         Features.registerAll(config)
+        RotationUtils.init()
         Commands.registerAll()
         println("Hypixel addon loaded")
     }

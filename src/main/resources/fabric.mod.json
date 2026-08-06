@@ -19,7 +19,7 @@
 	"environment": "*",
     "entrypoints": {
       "client": [
-      "com.feb.addon.Febmodhypixel"
+      "com.feb.addon.HypixelAddon"
       ]
     },
 	"mixins": [

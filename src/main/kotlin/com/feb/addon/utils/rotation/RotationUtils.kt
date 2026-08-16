@@ -1,11 +1,13 @@
-package com.feb.addon.utils
+package com.feb.addon.utils.rotation
 
+import com.feb.addon.utils.mc
 import com.feb.mod.event.EventBus
 import com.feb.mod.event.SubscribeEvent
 import com.feb.mod.event.events.RenderFrameEvent
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.math.sin
 import kotlin.math.sqrt
 import kotlin.random.Random
 
@@ -212,7 +214,7 @@ object RotationUtils {
         else 1f - (-2f * t + 2f).let { it * it * it } / 2f
 
     private fun smoothNoise(phase: Float): Float {
-        return (kotlin.math.sin(phase) * 0.6f + kotlin.math.sin(phase * 2.3f + 1.7f) * 0.3f + kotlin.math.sin(phase * 5.1f + 0.4f) * 0.1f)
+        return (sin(phase) * 0.6f + sin(phase * 2.3f + 1.7f) * 0.3f + sin(phase * 5.1f + 0.4f) * 0.1f)
     }
 
     private fun easeInOutQuad(t: Float): Float = if (t < 0.5f) 2f * t * t else 1f - (-2f * t + 2f).let { it * it } / 2f

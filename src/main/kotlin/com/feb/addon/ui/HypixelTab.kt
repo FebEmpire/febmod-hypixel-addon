@@ -1,6 +1,7 @@
 package com.feb.addon.ui
 
 import com.feb.addon.feature.AntiCobbleBreaker
+import com.feb.addon.feature.AutoRogue
 import com.feb.addon.feature.EntityESP
 import com.feb.addon.feature.TriggerBot
 import com.feb.mod.ui.gui.FebModGui
@@ -66,6 +67,21 @@ class HypixelTab : FebTab {
         espBtn.toggled = EntityESP.isEnabled()
         buttons.add(espBtn)
         screen.addWidget(espBtn)
+
+        val autoRogueBtn = FebButton(
+            FebModGui.CONTENT_X_ADDONS + 10,
+            FebModGui.TOP_BAR_HEIGHT + 88,
+            160,
+            20,
+            Component.literal("Auto Rogue"),
+            screen.font
+        ) {
+            AutoRogue.toggle()
+            buttons[3].toggled = AutoRogue.isEnabled()
+        }
+        autoRogueBtn.toggled = AutoRogue.isEnabled()
+        buttons.add(autoRogueBtn)
+        screen.addWidget(autoRogueBtn)
     }
 
     override fun render(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, delta: Float) {

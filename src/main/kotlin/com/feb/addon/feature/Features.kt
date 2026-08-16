@@ -13,6 +13,7 @@ object Features {
         ShortCommands.register()
         AntiLimbo.register()
         Solver.register()
+        AutoRogue.initialize()
     }
 
 }

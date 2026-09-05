@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.HitResult
-import net.minecraft.world.InteractionHand
 import com.feb.mod.utils.ChatUtils
+import com.feb.addon.utils.InputUtils
 
 object TriggerBot {
     private val client = Minecraft.getInstance()
@@ -43,8 +43,7 @@ object TriggerBot {
             }
 
             if (ticksUntilNextClick <= 0) {
-                client.gameMode?.attack(player, entity)
-                player.swing(InteractionHand.MAIN_HAND)
+                InputUtils.attack()
                 ticksUntilNextClick = randomInterval()
             } else {
                 ticksUntilNextClick--

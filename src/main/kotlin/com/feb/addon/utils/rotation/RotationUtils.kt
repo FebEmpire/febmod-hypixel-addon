@@ -1,9 +1,8 @@
 package com.feb.addon.utils.rotation
 
 import com.feb.addon.utils.mc
-import com.feb.mod.event.EventBus
-import com.feb.mod.event.SubscribeEvent
-import com.feb.mod.event.events.RenderFrameEvent
+import com.feb.mod.addon.AddonContext
+import com.feb.mod.api.event.events.RenderFrameEvent
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -51,8 +50,10 @@ object RotationUtils {
     private const val DELAY_YAW_THRESHOLD = 12f
     private const val DELAY_PITCH_THRESHOLD = 8f
 
-    fun init() {
-        EventBus.register("febmod-rotationutils", this)
+    fun init(context: AddonContext) {
+        context.events.on<RenderFrameEvent> {
+            onRenderFrame(it)
+        }
     }
 
     fun setPacketSending(enabled: Boolean) {
@@ -72,12 +73,14 @@ object RotationUtils {
             val referencePitch = if (hasPendingRotation) pendingPitch else targetPitch
             val yawChange = abs(getRotationDelta(referenceYaw, yaw))
             val pitchChange = abs(referencePitch - pitch)
+
             if (yawChange > DELAY_YAW_THRESHOLD || pitchChange > DELAY_PITCH_THRESHOLD) {
                 pendingYaw = yaw
                 pendingPitch = pitch
                 hasPendingRotation = true
                 rotationRequestTime = System.currentTimeMillis()
-                rotationDelay = Random.nextFloat() * (DELAY_MAX_TIME - DELAY_MIN_TIME) + DELAY_MIN_TIME
+                rotationDelay =
+                    Random.nextFloat() * (DELAY_MAX_TIME - DELAY_MIN_TIME) + DELAY_MIN_TIME
                 return
             }
         }
@@ -126,12 +129,12 @@ object RotationUtils {
         hasPendingRotation = false
     }
 
-    @SubscribeEvent
-    fun onRenderFrame(event: RenderFrameEvent) {
+    private fun onRenderFrame(event: RenderFrameEvent) {
         val player = mc.player ?: return
 
         if (delayEnabled && hasPendingRotation) {
             val elapsed = (System.currentTimeMillis() - rotationRequestTime) / 1000f
+
             if (elapsed >= rotationDelay) {
                 beginRotation(pendingYaw, pendingPitch)
                 hasPendingRotation = false
@@ -147,29 +150,45 @@ object RotationUtils {
         val yawDelta = getRotationDelta(startYaw, targetYaw)
         val pitchDelta = targetPitch - startPitch
 
-        val overshootFade = if (progress > 0.7f) (1f - progress) / 0.3f else 1f
+        val overshootFade =
+            if (progress > 0.7f) (1f - progress) / 0.3f else 1f
+
         val overshootOffsetYaw = overshootYaw * overshootFade
         val overshootOffsetPitch = overshootPitch * overshootFade
 
         val amp = (1f - easedProgress).coerceIn(0f, 1f)
         noisePhase += noiseFreq
+
         val sineNoise = smoothNoise(noisePhase)
+
         yawNoise = yawNoise * 0.6f + sineNoise * 0.03f * amp
         pitchNoise = pitchNoise * 0.6f + sineNoise * 0.015f * amp
 
-        val rawYaw = startYaw + yawDelta * easedProgress + overshootOffsetYaw + yawNoise
-        val rawPitch = (startPitch + pitchDelta * easedProgress + overshootOffsetPitch + pitchNoise)
-            .coerceIn(-90f, 90f)
+        val rawYaw =
+            startYaw + yawDelta * easedProgress + overshootOffsetYaw + yawNoise
 
-        val newYaw = applyGCD(current = player.yRot, next = rawYaw)
-        val newPitch = applyGCD(current = player.xRot, next = rawPitch).coerceIn(-90f, 90f)
+        val rawPitch =
+            (startPitch + pitchDelta * easedProgress + overshootOffsetPitch + pitchNoise)
+                .coerceIn(-90f, 90f)
+
+        val newYaw = applyGCD(
+            current = player.yRot,
+            next = rawYaw
+        )
+
+        val newPitch = applyGCD(
+            current = player.xRot,
+            next = rawPitch
+        ).coerceIn(-90f, 90f)
 
         player.setYRot(newYaw)
         player.setXRot(newPitch)
 
         maybeSendPacket(newYaw, newPitch)
 
-        if (progress >= 1f) stop()
+        if (progress >= 1f) {
+            stop()
+        }
     }
 
     private fun maybeSendPacket(currentYaw: Float, currentPitch: Float) {
@@ -183,43 +202,79 @@ object RotationUtils {
             abs(getRotationDelta(currentYaw, targetYaw)),
             abs(currentPitch - targetPitch)
         )
-        val requiredInterval = if (distanceToTarget < NEAR_TARGET_TOLERANCE) {
-            NEAR_TARGET_PACKET_INTERVAL_MS
-        } else {
-            MIN_PACKET_INTERVAL_MS
-        }
+
+        val requiredInterval =
+            if (distanceToTarget < NEAR_TARGET_TOLERANCE) {
+                NEAR_TARGET_PACKET_INTERVAL_MS
+            } else {
+                MIN_PACKET_INTERVAL_MS
+            }
+
         if (now - lastPacketSendTime < requiredInterval) return
 
         val yawDelta = abs(getRotationDelta(lastSentYaw, currentYaw))
         val pitchDelta = abs(lastSentPitch - currentPitch)
-        if (yawDelta < PACKET_ROTATION_THRESHOLD && pitchDelta < PACKET_ROTATION_THRESHOLD) return
+
+        if (yawDelta < PACKET_ROTATION_THRESHOLD &&
+            pitchDelta < PACKET_ROTATION_THRESHOLD
+        ) {
+            return
+        }
 
         val gcd = getGCD()
+
         val yawMultiple = yawDelta / gcd
         val pitchMultiple = pitchDelta / gcd
-        val yawValid = abs(yawMultiple - yawMultiple.roundToInt()) < 0.001f || yawDelta < 0.001f
-        val pitchValid = abs(pitchMultiple - pitchMultiple.roundToInt()) < 0.001f || pitchDelta < 0.001f
+
+        val yawValid =
+            abs(yawMultiple - yawMultiple.roundToInt()) < 0.001f ||
+                    yawDelta < 0.001f
+
+        val pitchValid =
+            abs(pitchMultiple - pitchMultiple.roundToInt()) < 0.001f ||
+                    pitchDelta < 0.001f
+
         if (!yawValid || !pitchValid) return
 
-        connection.send(ServerboundMovePlayerPacket.Rot(currentYaw, currentPitch, player.onGround(), player.horizontalCollision))
+        connection.send(
+            ServerboundMovePlayerPacket.Rot(
+                currentYaw,
+                currentPitch,
+                player.onGround(),
+                player.horizontalCollision
+            )
+        )
+
         lastSentYaw = currentYaw
         lastSentPitch = currentPitch
         lastPacketSendTime = now
     }
 
-    private fun blendedEase(t: Float, threshold: Float): Float = easeInOutCubic(t)
+    private fun blendedEase(t: Float, threshold: Float): Float =
+        easeInOutCubic(t)
 
     private fun easeInOutCubic(t: Float): Float =
-        if (t < 0.5f) 4f * t * t * t
-        else 1f - (-2f * t + 2f).let { it * it * it } / 2f
+        if (t < 0.5f) {
+            4f * t * t * t
+        } else {
+            1f - (-2f * t + 2f).let { it * it * it } / 2f
+        }
 
     private fun smoothNoise(phase: Float): Float {
-        return (sin(phase) * 0.6f + sin(phase * 2.3f + 1.7f) * 0.3f + sin(phase * 5.1f + 0.4f) * 0.1f)
+        return sin(phase) * 0.6f +
+                sin(phase * 2.3f + 1.7f) * 0.3f +
+                sin(phase * 5.1f + 0.4f) * 0.1f
     }
 
-    private fun easeInOutQuad(t: Float): Float = if (t < 0.5f) 2f * t * t else 1f - (-2f * t + 2f).let { it * it } / 2f
+    private fun easeInOutQuad(t: Float): Float =
+        if (t < 0.5f) {
+            2f * t * t
+        } else {
+            1f - (-2f * t + 2f).let { it * it } / 2f
+        }
 
-    private fun easeOutQuad(t: Float): Float = 1f - (1f - t) * (1f - t)
+    private fun easeOutQuad(t: Float): Float =
+        1f - (1f - t) * (1f - t)
 
     private fun applyGCD(current: Float, next: Float): Float {
         val gcd = getGCD()
@@ -236,15 +291,19 @@ object RotationUtils {
 
     private fun normalizeAngle(angle: Float): Float {
         var a = angle % 360f
+
         if (a >= 180f) a -= 360f
         if (a < -180f) a += 360f
+
         return a
     }
 
     private fun getRotationDelta(from: Float, to: Float): Float {
         var delta = normalizeAngle(to) - normalizeAngle(from)
+
         if (delta > 180f) delta -= 360f
         if (delta < -180f) delta += 360f
+
         return delta
     }
 }

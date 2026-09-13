@@ -1,6 +1,6 @@
 package com.feb.addon.feature.solver.dwarven
 
-import com.feb.mod.utils.ChatUtils
+import com.feb.mod.api.chat.ModMessage
 
 class FetchurSolver {
 
@@ -26,6 +26,6 @@ class FetchurSolver {
         val match = REGEX.matchEntire(message) ?: return
         val riddle = match.groupValues[1]
         val answer = ANSWERS.getOrDefault(riddle, "Unknown: $riddle")
-        ChatUtils.modMessage("Fetchur needs: $answer")
+        ModMessage.send("Fetchur needs: $answer")
     }
 }

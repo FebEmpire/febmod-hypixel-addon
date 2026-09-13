@@ -18,10 +18,10 @@ class HypixelAddon : FebAddon {
 
     override fun initialize(context: AddonContext) {
         config = context.config(HypixelConfig())
-        Features.registerAll(config)
-        RotationUtils.init()
+        Features.registerAll(config, context)
+        RotationUtils.init(context)
         Commands.registerAll()
-        RotationTestRunner.init()
+        RotationTestRunner.init(context)
         println("Hypixel addon loaded")
     }
 

@@ -2,7 +2,8 @@ package com.feb.addon.feature
 
 import com.feb.addon.config.ESPConfig
 import com.feb.addon.utils.RenderUtils
-import com.feb.mod.utils.ChatUtils
+import com.feb.mod.api.chat.ChatMessage
+import com.feb.mod.api.chat.ModMessage
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext
 import net.minecraft.client.Minecraft
@@ -36,7 +37,7 @@ object EntityESP {
 
     fun toggle() {
         enabled = !enabled
-        ChatUtils.modMessage("Entity ESP ${if (enabled) "enabled" else "disabled"}")
+        ModMessage.send("Entity ESP ${if (enabled) "enabled" else "disabled"}")
     }
 
     fun isEnabled() = enabled

@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.HitResult
-import com.feb.mod.utils.ChatUtils
+import com.feb.mod.api.chat.ModMessage
 import com.feb.addon.utils.InputUtils
 
 object TriggerBot {
@@ -54,7 +54,7 @@ object TriggerBot {
     fun toggle() {
         config.update { it.triggerBotEnabled = !it.triggerBotEnabled }
         ticksUntilNextClick = 0
-        ChatUtils.modMessage("TriggerBot ${if (isEnabled()) "enabled" else "disabled"}")
+        ModMessage.send("TriggerBot ${if (isEnabled()) "enabled" else "disabled"}")
     }
 
     fun isEnabled() = config.current.triggerBotEnabled

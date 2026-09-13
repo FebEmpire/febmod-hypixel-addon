@@ -2,6 +2,7 @@ package com.feb.addon.feature
 
 import com.feb.addon.utils.InputUtils
 import com.feb.addon.utils.ItemUtils
+import com.feb.mod.api.chat.ModMessage
 import com.feb.addon.utils.mc
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 
@@ -37,7 +38,7 @@ object AutoRogue {
         } else {
             cooldown = 0
         }
-        com.feb.mod.utils.ChatUtils.modMessage("AutoRogue ${if (enabled) "enabled" else "disabled"}")
+        ModMessage.send("AutoRogue ${if (enabled) "enabled" else "disabled"}")
     }
 
     fun isEnabled() = enabled

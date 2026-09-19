@@ -1,8 +1,8 @@
-package com.feb.addon.feature
+package com.feb.addon.feature.general
 
-import com.feb.addon.utils.InputUtils
-import com.feb.addon.utils.ItemUtils
 import com.feb.mod.api.chat.ModMessage
+import com.feb.mod.api.input.InputApi
+import com.feb.mod.api.item.ItemApi
 import com.feb.addon.utils.mc
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 
@@ -10,7 +10,7 @@ object AutoRogue {
 
     private const val COOLDOWN_TICKS = 30 * 20
 
-    private val ROGUE_FILTER = ItemUtils.ItemFilter(
+    private val ROGUE_FILTER = ItemApi.ItemFilter(
         minecraftId = "golden_sword",
         name = "rogue sword",
         lore = "ability: speed boost",
@@ -32,7 +32,7 @@ object AutoRogue {
         enabled = !enabled
         if (!enabled) {
             if (step != Step.IDLE && returnSlot >= 0) {
-                InputUtils.selectHotbarSlot(returnSlot)
+                InputApi.selectHotbarSlot(returnSlot)
             }
             finishCycle()
         } else {
@@ -59,12 +59,14 @@ object AutoRogue {
             stepTicks--
             when (step) {
                 Step.SWITCHED -> if (stepTicks <= 0) {
-                    InputUtils.useItem()
+                    InputApi.useItem()
                     step = Step.USED
                     stepTicks = 3
                 }
                 Step.USED -> if (stepTicks <= 0) {
-                    if (returnSlot >= 0) InputUtils.selectHotbarSlot(returnSlot)
+                    if (returnSlot >= 0) {
+                        InputApi.selectHotbarSlot(returnSlot)
+                    }
                     finishCycle()
                 }
                 Step.IDLE -> {}
@@ -75,7 +77,7 @@ object AutoRogue {
         if (cooldown > 0) cooldown--
 
         if (cooldown <= 0 && mc.screen == null) {
-            val found = ItemUtils.findInHotbar(ROGUE_FILTER)
+            val found = ItemApi.findInHotbar(ROGUE_FILTER)
             if (found == null) {
                 cooldown = COOLDOWN_TICKS
                 return
@@ -85,7 +87,7 @@ object AutoRogue {
                 return
             }
             returnSlot = player.inventory.selectedSlot
-            InputUtils.selectHotbarSlot(found.slot)
+            InputApi.selectHotbarSlot(found.slot)
             step = Step.SWITCHED
             stepTicks = 2
         }
@@ -100,9 +102,8 @@ object AutoRogue {
 
     private fun reset() {
         if (step != Step.IDLE && returnSlot >= 0) {
-            InputUtils.selectHotbarSlot(returnSlot)
+            InputApi.selectHotbarSlot(returnSlot)
         }
         finishCycle()
     }
-
 }

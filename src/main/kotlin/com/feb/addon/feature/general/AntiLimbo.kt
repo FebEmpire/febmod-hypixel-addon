@@ -1,4 +1,4 @@
-package com.feb.addon.feature
+package com.feb.addon.feature.general
 
 import com.feb.mod.addon.AddonContext
 import com.feb.mod.api.chat.ModMessage

@@ -1,13 +1,13 @@
-package com.feb.addon.feature
+package com.feb.addon.feature.general
 
 import com.feb.mod.addon.AddonConfig
+import com.feb.mod.api.chat.ModMessage
+import com.feb.mod.api.input.InputApi
 import com.feb.addon.HypixelConfig
-import net.minecraft.client.Minecraft
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+import net.minecraft.client.Minecraft
 import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.HitResult
-import com.feb.mod.api.chat.ModMessage
-import com.feb.addon.utils.InputUtils
 
 object TriggerBot {
     private val client = Minecraft.getInstance()
@@ -43,7 +43,7 @@ object TriggerBot {
             }
 
             if (ticksUntilNextClick <= 0) {
-                InputUtils.attack()
+                InputApi.attack()
                 ticksUntilNextClick = randomInterval()
             } else {
                 ticksUntilNextClick--

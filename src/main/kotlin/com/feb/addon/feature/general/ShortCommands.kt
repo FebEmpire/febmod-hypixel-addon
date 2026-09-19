@@ -1,4 +1,4 @@
-package com.feb.addon.feature
+package com.feb.addon.feature.general
 
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands

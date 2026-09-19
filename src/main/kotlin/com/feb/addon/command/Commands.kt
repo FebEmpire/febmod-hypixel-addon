@@ -1,7 +1,7 @@
 package com.feb.addon.command
 
 import com.feb.mod.command.DotCommands
-import com.feb.addon.feature.AntiCobbleBreaker
+import com.feb.addon.feature.general.AntiCobbleBreaker
 import com.feb.addon.utils.rotation.RotationTestRunner
 import com.feb.addon.utils.rotation.RotationUtils
 

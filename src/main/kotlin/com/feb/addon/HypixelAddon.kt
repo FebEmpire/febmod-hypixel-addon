@@ -4,6 +4,7 @@ import com.feb.mod.addon.AddonContext
 import com.feb.mod.addon.FebAddon
 import com.feb.addon.command.Commands
 import com.feb.addon.feature.Features
+import com.feb.addon.feature.dungeons.DungeonsRegister
 import com.feb.mod.ui.gui.FebModGui
 import com.feb.mod.ui.gui.tabs.FebTab
 import com.feb.addon.ui.HypixelTab
@@ -19,6 +20,7 @@ class HypixelAddon : FebAddon {
     override fun initialize(context: AddonContext) {
         config = context.config(HypixelConfig())
         Features.registerAll(config, context)
+        DungeonsRegister.registerAll()
         RotationUtils.init(context)
         Commands.registerAll()
         RotationTestRunner.init(context)

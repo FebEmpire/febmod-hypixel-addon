@@ -1,4 +1,4 @@
-package com.feb.addon.feature
+package com.feb.addon.feature.general
 
 import net.minecraft.client.Minecraft
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback

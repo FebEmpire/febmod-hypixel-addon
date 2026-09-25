@@ -2,8 +2,11 @@ package com.feb.addon.feature.dungeons
 
 import com.feb.addon.config.ESPConfig
 import com.feb.mod.api.chat.ModMessage
+import com.feb.mod.api.event.Event
+import com.feb.mod.api.event.EventBus
+import com.feb.mod.api.event.events.RenderFrameEvent
 import com.feb.mod.api.render.RenderApi
-import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents
+import com.feb.mod.addon.AddonContext
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.phys.AABB
@@ -14,11 +17,11 @@ object StarMobESP {
 
     private var enabled = false
 
-    fun initialize() {
-        LevelRenderEvents.END_MAIN.register {
-            if (!enabled) return@register
+    fun initialize(context: AddonContext) {
+        context.events.on<RenderFrameEvent> {
+            if (!enabled) return@on
 
-            val level = client.level ?: return@register
+            val level = client.level ?: return@on
             val livingEntities = level.entitiesForRendering()
                 .filterIsInstance<LivingEntity>()
                 .filter { it.health > 0f }

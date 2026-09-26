@@ -2,6 +2,7 @@ package com.feb.addon.ui
 
 import com.feb.addon.ui.categories.DungeonsTab
 import com.feb.addon.ui.categories.GeneralTab
+import com.feb.addon.ui.categories.MiningTab
 import com.feb.addon.ui.categories.SettingsTab
 import com.feb.mod.ui.gui.FebModGui
 import com.feb.mod.ui.gui.components.FebButton
@@ -27,7 +28,11 @@ class HypixelTab : FebTab {
             screen.openSubScreen(DungeonsTab(screen))
         }
 
-        addCategory("Settings", 62) {
+        addCategory("Mining", 62) {
+            screen.openSubScreen(MiningTab(screen))
+        }
+
+        addCategory("Settings", 88) {
             screen.openSubScreen(SettingsTab(screen))
         }
     }

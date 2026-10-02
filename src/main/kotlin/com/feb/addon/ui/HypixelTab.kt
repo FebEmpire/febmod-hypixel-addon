@@ -1,6 +1,7 @@
 package com.feb.addon.ui
 
 import com.feb.addon.ui.categories.DungeonsTab
+import com.feb.addon.ui.categories.FailsafeTab
 import com.feb.addon.ui.categories.GeneralTab
 import com.feb.addon.ui.categories.MiningTab
 import com.feb.addon.ui.categories.SettingsTab
@@ -34,6 +35,10 @@ class HypixelTab : FebTab {
 
         addCategory("Settings", 88) {
             screen.openSubScreen(SettingsTab(screen))
+        }
+
+        addCategory("Failsafes", 114) {
+            screen.openSubScreen(FailsafeTab(screen))
         }
     }
 

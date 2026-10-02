@@ -11,6 +11,8 @@ import com.feb.mod.addon.AddonContext
 import com.feb.mod.addon.FebAddon
 import com.feb.mod.ui.gui.FebModGui
 import com.feb.mod.ui.gui.tabs.FebTab
+import com.feb.addon.command.failsafe.*
+import com.feb.addon.config.Config
 
 class HypixelAddon : FebAddon {
     private lateinit var context: AddonContext
@@ -23,7 +25,9 @@ class HypixelAddon : FebAddon {
         Features.registerAll(config, context)
         DungeonsRegister.registerAll(context)
         RotationUtils.init(context)
+        Config.registerAll()
         Commands.registerAll(context.commands)
+        FailsafeCommands.register(context.commands)
         RotationTestRunner.init(context)
         println("Hypixel addon loaded")
     }

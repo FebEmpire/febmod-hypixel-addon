@@ -2,6 +2,7 @@ package com.feb.addon.feature
 
 import com.feb.addon.HypixelConfig
 import com.feb.addon.feature.general.*
+import com.feb.addon.feature.hunting.GalateaESP
 import com.feb.addon.feature.solver.*
 import com.feb.addon.feature.mining.*
 import com.feb.mod.addon.AddonConfig
@@ -21,5 +22,6 @@ object Features {
         TitaniumESP.initialize(context)
         AutoRogue.initialize()
         AutoHarp.initialize(context)
+        GalateaESP.initialize(context)
     }
 }

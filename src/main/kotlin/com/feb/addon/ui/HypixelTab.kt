@@ -1,10 +1,6 @@
 package com.feb.addon.ui
 
-import com.feb.addon.ui.categories.DungeonsTab
-import com.feb.addon.ui.categories.FailsafeTab
-import com.feb.addon.ui.categories.GeneralTab
-import com.feb.addon.ui.categories.MiningTab
-import com.feb.addon.ui.categories.SettingsTab
+import com.feb.addon.ui.categories.*
 import com.feb.mod.ui.gui.FebModGui
 import com.feb.mod.ui.gui.components.FebButton
 import com.feb.mod.ui.gui.tabs.FebTab
@@ -39,6 +35,10 @@ class HypixelTab : FebTab {
 
         addCategory("Failsafes", 114) {
             screen.openSubScreen(FailsafeTab(screen))
+        }
+
+        addCategory("Hunting", 140) {
+            screen.openSubScreen(HuntingTab(screen))
         }
     }
 

@@ -1,13 +1,13 @@
-package com.feb.addon.feature
+package com.feb.addon.feature.general
 
 import com.feb.mod.addon.AddonConfig
+import com.feb.mod.api.chat.ModMessage
+import com.feb.mod.api.input.InputApi
 import com.feb.addon.HypixelConfig
-import net.minecraft.client.Minecraft
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+import net.minecraft.client.Minecraft
 import net.minecraft.world.phys.EntityHitResult
 import net.minecraft.world.phys.HitResult
-import net.minecraft.world.InteractionHand
-import com.feb.mod.utils.ChatUtils
 
 object TriggerBot {
     private val client = Minecraft.getInstance()
@@ -43,8 +43,7 @@ object TriggerBot {
             }
 
             if (ticksUntilNextClick <= 0) {
-                client.gameMode?.attack(player, entity)
-                player.swing(InteractionHand.MAIN_HAND)
+                InputApi.attack()
                 ticksUntilNextClick = randomInterval()
             } else {
                 ticksUntilNextClick--
@@ -55,7 +54,7 @@ object TriggerBot {
     fun toggle() {
         config.update { it.triggerBotEnabled = !it.triggerBotEnabled }
         ticksUntilNextClick = 0
-        ChatUtils.modMessage("TriggerBot ${if (isEnabled()) "enabled" else "disabled"}")
+        ModMessage.send("TriggerBot ${if (isEnabled()) "enabled" else "disabled"}")
     }
 
     fun isEnabled() = config.current.triggerBotEnabled

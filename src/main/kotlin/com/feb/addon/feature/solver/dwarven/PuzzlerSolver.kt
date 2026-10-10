@@ -1,7 +1,7 @@
 package com.feb.addon.feature.solver.dwarven
 
+import com.feb.mod.api.render.RenderApi
 import net.minecraft.core.BlockPos
-import com.feb.addon.utils.RenderUtils
 import java.awt.Color
 
 class PuzzlerSolver {
@@ -36,6 +36,6 @@ class PuzzlerSolver {
 
     fun render() {
         val pos = targetPos ?: return
-        RenderUtils.drawBlockPos(pos, Color(255, 80, 80))
+        RenderApi.drawBlockPos(pos, Color(255, 80, 80))
     }
 }

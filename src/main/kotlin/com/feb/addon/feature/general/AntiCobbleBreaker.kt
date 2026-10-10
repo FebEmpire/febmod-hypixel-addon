@@ -1,10 +1,10 @@
-package com.feb.addon.feature
+package com.feb.addon.feature.general
 
 import net.minecraft.client.Minecraft
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.InteractionResult
-import com.feb.mod.utils.ChatUtils
+import com.feb.mod.api.chat.ModMessage
 
 object AntiCobbleBreaker {
     private var enabled = false
@@ -25,7 +25,7 @@ object AntiCobbleBreaker {
     fun toggle() {
         enabled = !enabled
         val status = if (enabled) "enabled" else "disabled"
-        ChatUtils.modMessage("Anti cobble breaker $status")
+        ModMessage.send("Anti cobble breaker $status")
     }
 
     fun isEnabled() = enabled

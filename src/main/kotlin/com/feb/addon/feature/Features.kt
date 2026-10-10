@@ -20,5 +20,6 @@ object Features {
         Solver.register()
         TitaniumESP.initialize(context)
         AutoRogue.initialize()
+        AutoHarp.initialize(context)
     }
 }

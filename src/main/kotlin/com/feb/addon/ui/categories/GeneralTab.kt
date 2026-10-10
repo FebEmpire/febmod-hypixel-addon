@@ -1,6 +1,7 @@
 package com.feb.addon.ui.categories
 
 import com.feb.addon.feature.general.AntiCobbleBreaker
+import com.feb.addon.feature.general.AutoHarp
 import com.feb.addon.feature.general.AutoRogue
 import com.feb.addon.feature.general.TriggerBot
 import com.feb.mod.ui.gui.FebModGui
@@ -39,6 +40,14 @@ class GeneralTab(parent: FebModGui) : AbstractSubScreen(parent) {
             { AutoRogue.isEnabled() }
         ) {
             AutoRogue.toggle()
+        }
+
+        addToggle(
+            "Auto Harp",
+            122,
+            { AutoHarp.isEnabled() }
+        ) {
+            AutoHarp.toggle()
         }
     }
 

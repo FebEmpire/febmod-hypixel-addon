@@ -1,3 +1,4 @@
+
 package com.feb.addon.ui.categories.hunting
 
 import com.feb.addon.feature.hunting.GalateaESP
@@ -9,6 +10,13 @@ import net.minecraft.client.gui.GuiGraphicsExtractor
 class GalateaSettingsScreen(parent: FebModGui) : AbstractSubScreen(parent) {
 
     private val checkboxes = mutableListOf<FebCheckBox>()
+
+    private val mobNames = listOf(
+        "Axolotls",
+        "Frogs",
+        "Shulkers",
+        "Sea Pickles"
+    )
 
     override fun getTitle() = "Galatea ESP Settings"
 
@@ -55,6 +63,12 @@ class GalateaSettingsScreen(parent: FebModGui) : AbstractSubScreen(parent) {
             GalateaESP.isShulkersEnabled(),
             GalateaESP::setShulkersEnabled
         )
+
+        addMobCheckbox(
+            "Sea Lumies",
+            GalateaESP.isSeaPickleEnabled(),
+            GalateaESP::setSeaPickleEnabled
+        )
     }
 
     override fun renderContent(
@@ -65,7 +79,7 @@ class GalateaSettingsScreen(parent: FebModGui) : AbstractSubScreen(parent) {
     ) {
         var y = FebModGui.TOP_BAR_HEIGHT + 52
 
-        listOf("Axolotls", "Frogs", "Shulkers").forEach { name ->
+        mobNames.forEach { name ->
             graphics.text(
                 parent.font,
                 name,

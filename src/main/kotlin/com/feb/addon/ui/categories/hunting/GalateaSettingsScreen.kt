@@ -15,7 +15,7 @@ class GalateaSettingsScreen(parent: FebModGui) : AbstractSubScreen(parent) {
         "Axolotls",
         "Frogs",
         "Shulkers",
-        "Sea Pickles"
+        "Sea Lumies"
     )
 
     override fun getTitle() = "Galatea ESP Settings"

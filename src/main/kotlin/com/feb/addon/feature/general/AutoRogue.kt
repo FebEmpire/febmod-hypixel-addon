@@ -52,7 +52,7 @@ object AutoRogue {
         }
 
         if (step != Step.IDLE) {
-            if (mc.screen != null) {
+            if (mc.gui.screen() != null) {
                 reset()
                 return
             }
@@ -76,7 +76,7 @@ object AutoRogue {
 
         if (cooldown > 0) cooldown--
 
-        if (cooldown <= 0 && mc.screen == null) {
+        if (cooldown <= 0 && mc.gui.screen() == null) {
             val found = ItemApi.findInHotbar(ROGUE_FILTER)
             if (found == null) {
                 cooldown = COOLDOWN_TICKS

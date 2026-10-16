@@ -1,6 +1,6 @@
 {
   "id": "hypixel",
   "name": "Hypixel Addon",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "entrypoint": "com.feb.addon.HypixelAddon"
 }

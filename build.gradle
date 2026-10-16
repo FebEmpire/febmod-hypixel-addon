@@ -11,6 +11,8 @@ group = project.maven_group
 
 repositories {
     mavenLocal()
+    maven { url = 'https://jitpack.io' }
+
     maven {
         name = "meteor-maven"
         url = "https://maven.meteordev.org/releases"
@@ -24,7 +26,15 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     implementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
 
-    compileOnly "com.feb.mod:febmod:${project.febmod_version}"
+    compileOnly "com.github.FebEmpire:febmod:${project.febmod_version}"
+    runtimeOnly "com.github.FebEmpire:febmod:${project.febmod_version}"
+}
+
+configurations.configureEach {
+    resolutionStrategy {
+        cacheChangingModulesFor 0, 'seconds'
+        cacheDynamicVersionsFor 0, 'seconds'
+    }
 }
 
 processResources {
@@ -68,4 +78,17 @@ publishing {
             from components.java
         }
     }
+}
+
+def febmodAddonDir = file("${loom.runConfigs.client.runDir}/febmod/addons")
+
+tasks.register('installAddonForDev', Copy) {
+    dependsOn tasks.named('jar')
+
+    from(tasks.named('jar').flatMap { it.archiveFile })
+    into(febmodAddonDir)
+}
+
+tasks.named('runClient') {
+    dependsOn tasks.named('installAddonForDev')
 }

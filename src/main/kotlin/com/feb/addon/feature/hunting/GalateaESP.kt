@@ -19,6 +19,7 @@ object GalateaESP {
     private var frogsEnabled = true
     private var shulkersEnabled = true
     private var seaPickleEnabled = true
+    private var lushlilacEnabled = true
 
     private const val PICKLE_RADIUS = 8
 
@@ -74,6 +75,35 @@ object GalateaESP {
                     }
                 }
             }
+
+            if (lushlilacEnabled) {
+                val center = BlockPos.containing(player.position())
+
+                for (x in -PICKLE_RADIUS..PICKLE_RADIUS) {
+                    for (y in -PICKLE_RADIUS..PICKLE_RADIUS) {
+                        for (z in -PICKLE_RADIUS..PICKLE_RADIUS) {
+                            val pos = center.offset(x, y, z)
+                            val state = level.getBlockState(pos)
+
+                            if (!state.`is`(Blocks.FLOWERING_AZALEA)) continue
+
+                            val box = state.getShape(level, pos)
+                                .bounds()
+                                .move(
+                                    pos.x.toDouble(),
+                                    pos.y.toDouble(),
+                                    pos.z.toDouble()
+                                )
+
+                            RenderApi.drawBox(
+                                box,
+                                ESPConfig.activeColor,
+                                esp = true
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -105,5 +135,10 @@ object GalateaESP {
 
     fun setSeaPickleEnabled(value: Boolean) {
         seaPickleEnabled = value
+    }
+
+    fun islushlilacEnabled() = lushlilacEnabled
+
+    fun setLushlilacEnabled(value: Boolean) {
     }
 }

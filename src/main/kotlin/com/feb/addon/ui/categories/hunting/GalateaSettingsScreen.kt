@@ -15,7 +15,8 @@ class GalateaSettingsScreen(parent: FebModGui) : AbstractSubScreen(parent) {
         "Axolotls",
         "Frogs",
         "Shulkers",
-        "Sea Lumies"
+        "Sea Lumies",
+        "Lushlilac"
     )
 
     override fun getTitle() = "Galatea ESP Settings"
@@ -68,6 +69,12 @@ class GalateaSettingsScreen(parent: FebModGui) : AbstractSubScreen(parent) {
             "Sea Lumies",
             GalateaESP.isSeaPickleEnabled(),
             GalateaESP::setSeaPickleEnabled
+        )
+
+        addMobCheckbox(
+            "Lushlilac",
+            GalateaESP.islushlilacEnabled(),
+            GalateaESP::setLushlilacEnabled
         )
     }
 

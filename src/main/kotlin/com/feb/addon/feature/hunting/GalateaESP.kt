@@ -10,6 +10,7 @@ import net.minecraft.world.entity.animal.axolotl.Axolotl
 import net.minecraft.world.entity.animal.frog.Frog
 import net.minecraft.world.entity.monster.Shulker
 import net.minecraft.world.level.block.Blocks
+import com.feb.addon.utils.LocationUtils
 
 object GalateaESP {
     private val client = Minecraft.getInstance()
@@ -25,7 +26,7 @@ object GalateaESP {
 
     fun initialize(context: AddonContext) {
         context.events.on<RenderFrameEvent> {
-            if (!enabled) return@on
+            if (!enabled || LocationUtils.location != "Galatea") return@on
 
             val level = client.level ?: return@on
             val player = client.player ?: return@on
@@ -140,5 +141,6 @@ object GalateaESP {
     fun islushlilacEnabled() = lushlilacEnabled
 
     fun setLushlilacEnabled(value: Boolean) {
+        lushlilacEnabled = value
     }
 }

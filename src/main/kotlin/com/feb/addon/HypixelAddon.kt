@@ -1,6 +1,7 @@
 package com.feb.addon
 
 import com.feb.addon.command.Commands
+import com.feb.addon.command.WhereAmICommand
 import com.feb.addon.feature.Features
 import com.feb.addon.feature.dungeons.DungeonsRegister
 import com.feb.addon.ui.HypixelTab
@@ -13,6 +14,8 @@ import com.feb.mod.ui.gui.FebModGui
 import com.feb.mod.ui.gui.tabs.FebTab
 import com.feb.addon.command.failsafe.*
 import com.feb.addon.config.Config
+import com.feb.addon.ui.hud.DebugHud
+import com.ibm.icu.impl.locale.LocaleValidityChecker
 
 class HypixelAddon : FebAddon {
     private lateinit var context: AddonContext
@@ -29,6 +32,8 @@ class HypixelAddon : FebAddon {
         Commands.registerAll(context.commands)
         FailsafeCommands.register(context.commands)
         RotationTestRunner.init(context)
+        DebugHud.initialize(context)
+        WhereAmICommand.register(context.commands)
         println("Hypixel addon loaded")
     }
 
